@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Hub - Sleep Reminder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    .device-list {
+      margin: 20px auto;
+      max-width: 600px;
+      border-collapse: collapse;
+    }
+    .device-list th, .device-list td {
+      border: 1px solid #ddd;
+      padding: 10px;
+    }
+    .device-list th {
+      background-color: #4caf50;
+      color: white;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #alert {
+      color: red;
+      font-size: 1.2em;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Smart Hub - Device Monitoring</h1>
+  <p>Connected devices will be monitored for usage limits. Alerts will notify the user to sleep.</p>
+
+  <!-- Device Table -->
+  <table class="device-list">
+    <thead>
+      <tr>
+        <th>Device</th>
+        <th>Usage Time (hours)</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="deviceTable">
+      <tr>
+        <td>Phone</td>
+        <td id="phoneTime">0</td>
+        <td id="phoneStatus">Active</td>
+      </tr>
+      <tr>
+        <td>Smartwatch</td>
+        <td id="watchTime">0</td>
+        <td id="watchStatus">Active</td>
+      </tr>
+      <tr>
+        <td>Computer</td>
+        <td id="computerTime">0</td>
+        <td id="computerStatus">Active</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Simulate Usage -->
+  <button onclick="simulateUsage()">Simulate Device Usage</button>
+
+  <!-- Alert Section -->
+  <div id="alert"></div>
+
+  <script>
+    // Usage limits (in hours)
+    const USAGE_LIMIT = 10;
+
+    // Initial usage times (in hours)
+    const usageTimes = {
+      phone: 0,
+      watch: 0,
+      computer: 0,
+    };
+
+    // Simulate usage and update the UI
+    function simulateUsage() {
+      // Increment usage times
+      usageTimes.phone += 1;
+      usageTimes.watch += 1.5; // Example: smartwatch increments faster
+      usageTimes.computer += 2; // Example: computer usage increments faster
+
+      // Update the table
+      document.getElementById("phoneTime").innerText = usageTimes.phone.toFixed(1);
+      document.getElementById("watchTime").innerText = usageTimes.watch.toFixed(1);
+      document.getElementById("computerTime").innerText = usageTimes.computer.toFixed(1);
+
+      // Check for time limits
+      checkTimeLimits();
+    }
+
+    // Check if any device exceeds the usage limit
+    function checkTimeLimits() {
+      let alertMessage = "";
+
+      if (usageTimes.phone >= USAGE_LIMIT) {
+        document.getElementById("phoneStatus").innerText = "Limit Reached";
+        alertMessage += "Phone usage limit exceeded. ";
+      }
+      if (usageTimes.watch >= USAGE_LIMIT) {
+        document.getElementById("watchStatus").innerText = "Limit Reached";
+        alertMessage += "Smartwatch usage limit exceeded. ";
+      }
+      if (usageTimes.computer >= USAGE_LIMIT) {
+        document.getElementById("computerStatus").innerText = "Limit Reached";
+        alertMessage += "Computer usage limit exceeded. ";
+      }
+
+      // Display the alert
+      const alertDiv = document.getElementById("alert");
+      if (alertMessage) {
+        alertDiv.innerText = alertMessage + "Please go to sleep!";
+      } else {
+        alertDiv.innerText = "";
+      }
+    }
+  </script>
+</body>
+</html>
