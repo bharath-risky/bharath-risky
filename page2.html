@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sleep band</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border: 1px solid #ccc;
+            border-<radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Create an Account</h2>
+    <form id="accountForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" placeholder="Enter your username" required />
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="Enter your email" required />
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" placeholder="Enter your password" required />
+
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" placeholder="Confirm your password" required />
+
+        <p id="errorMessage" class="error"></p>
+        
+        <button type="button" onclick="createAccount()"><a href="page3.html">create account</a></button>
+    </form>
+</div>
+
+<script>
+    function createAccount() {
+        const username = document.getElementById('username').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Clear any previous error message
+        errorMessage.textContent = '';
+
+        // Validate input
+        if (!username || !email || !password || !confirmPassword) {
+            errorMessage.textContent = 'All fields are required.';
+            return;
+        }
+        if (password !== confirmPassword) {
+            errorMessage.textContent = 'Passwords do not match.';
+            return;
+        }
+        if (password.length < 6) {
+            errorMessage.textContent = 'Password must be at least 6 characters long.';
+            return;
+        }
+
+        // Simulate account creation (you can replace this with server logic)
+        alert(Account created successfully for ${username}!);
+    }
+</script>
+ 
+</body>
+</html>
